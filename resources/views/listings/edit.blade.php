@@ -1,4 +1,3 @@
-{{-- Edit form - basically the create form but pre-filled with the listing's data --}}
 @extends('layouts.app')
 
 @section('content')
@@ -16,11 +15,10 @@
 
         <form action="{{ route('listings.update', $listing) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            {{-- html forms can't send PUT, so we spoof it with @method --}}
+            {{-- forms only do GET/POST so we fake the PUT --}}
             @method('PUT')
             <div class="form-group">
                 <label>{{ __('messages.title') }}</label>
-                {{-- pre-fill with the current value so the user can tweak it --}}
                 <input type="text" name="title" value="{{ $listing->title }}" required>
             </div>
             <div class="form-group">
@@ -38,7 +36,6 @@
             <div class="form-group">
                 <label>{{ __('messages.category') }}</label>
                 <select name="category_id" required>
-                    {{-- mark the listing's current category as selected --}}
                     @foreach ($categories as $cat)
                         <option value="{{ $cat->id }}" {{ $listing->category_id == $cat->id ? 'selected' : '' }}>
                             {{ $cat->name }}</option>
@@ -50,19 +47,18 @@
                 @foreach ($listing->images as $image)
                     <div class="current-image">
                         <img src="{{ asset('storage/' . $image->file_path) }}" width="100">
+                        {{-- fetch() can send DELETE directly, but still needs the CSRF token in headers --}}
                         <button type="button"
                             onclick="
                 fetch('{{ route('images.destroy', $image) }}', {
-                    method: 'POST',
-                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}', 'Content-Type': 'application/json'},
-                    body: JSON.stringify({_method: 'DELETE'})
+                    method: 'DELETE',
+                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}', 'X-Requested-With': 'XMLHttpRequest'}
                 }).then(() => this.closest('.current-image').remove())">Remove</button>
                     </div>
                 @endforeach
             </div>
             <div class="form-group">
                 <label>Add more images</label>
-                {{-- any files added here get appended to the listing on update --}}
                 <input type="file" name="images[]" multiple accept="image/*">
             </div>
             <button type="submit" class="btn-red">{{ __('messages.save') }}</button>

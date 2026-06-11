@@ -11,9 +11,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique(); // no two accounts can share an email
+            $table->string('email')->unique();
             $table->string('password');
-            // three possible roles - admins can block people, blocked users are frozen
             $table->enum('role', ['registered', 'admin', 'blocked'])->default('registered');
             $table->timestamps();
         });

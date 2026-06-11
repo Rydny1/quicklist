@@ -11,23 +11,20 @@ class User extends Authenticatable
 
     protected $fillable = ['name', 'email', 'password', 'role'];
 
-    protected $hidden = ['password']; // never expose the password in arrays/json
+    protected $hidden = ['password']; // never include the password hash in JSON responses
 
-    // 'hashed' cast means any password we set gets bcrypt-hashed automatically
     protected function casts(): array
     {
         return [
-            'password' => 'hashed',
+            'password' => 'hashed', // Laravel auto-bcrypts it when saving
         ];
     }
 
-    // a user can post many listings
     public function listings()
     {
         return $this->hasMany(Listing::class);
     }
 
-    // quick helper used all over the app to gate admin features
     public function isAdmin()
     {
         return $this->role === 'admin';

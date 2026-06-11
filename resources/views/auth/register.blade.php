@@ -1,11 +1,9 @@
-{{-- Sign up page --}}
 @extends('layouts.app')
 
 @section('content')
 <div class="auth-form">
     <h2>{{ __('messages.register') }}</h2>
 
-    {{-- validation errors (duplicate email, password too short, etc) land here --}}
     @if($errors->any())
         <div class="error-box">
             @foreach($errors->all() as $error)
@@ -30,7 +28,6 @@
         </div>
         <div class="form-group">
             <label>Confirm Password</label>
-            {{-- must match the password above - the 'confirmed' rule checks this field --}}
             <input type="password" name="password_confirmation" required>
         </div>
         <button type="submit" class="btn-red">{{ __('messages.register') }}</button>

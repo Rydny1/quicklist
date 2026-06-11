@@ -1,4 +1,3 @@
-{{-- The user's own dashboard - shows only the listings they posted --}}
 @extends('layouts.app')
 
 @section('content')
@@ -11,7 +10,6 @@
         <div class="listings-grid">
             @foreach($listings as $listing)
             <div class="listing-card">
-                {{-- thumbnail or placeholder, same idea as the homepage cards --}}
                 @if($listing->images->count() > 0)
                     <img src="{{ asset('storage/'.$listing->images->first()->file_path) }}" alt="{{ $listing->title }}">
                 @else
@@ -21,7 +19,6 @@
                     <h3><a href="{{ route('listings.show', $listing) }}">{{ $listing->title }}</a></h3>
                     <p class="price">€{{ number_format($listing->price, 2) }}</p>
                     <p class="meta">{{ $listing->category->name }}</p>
-                    {{-- since these are all the user's own ads, every card gets edit + delete --}}
                     <div class="card-actions">
                         <a href="{{ route('listings.edit', $listing) }}" class="btn-red">{{ __('messages.edit') }}</a>
                         <form action="{{ route('listings.destroy', $listing) }}" method="POST" style="display:inline">
@@ -35,7 +32,6 @@
             @endforeach
         </div>
     @else
-        {{-- user hasn't posted anything yet --}}
         <p>{{ __('messages.no_listings') }}</p>
     @endif
 </div>

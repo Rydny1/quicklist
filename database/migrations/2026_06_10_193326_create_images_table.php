@@ -10,8 +10,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('file_path'); // path inside storage, not the whole image
-            // delete the images automatically when their listing is removed
+            $table->string('file_path');
             $table->foreignId('listing_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

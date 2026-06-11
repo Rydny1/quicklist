@@ -1,4 +1,3 @@
-{{-- Admin control panel - manage users and listings in one place --}}
 @extends('layouts.app')
 
 @section('content')
@@ -8,7 +7,6 @@
 
     <a href="{{ route('admin.auditLogs') }}" class="btn-red">{{ __('messages.audit_logs') }}</a>
 
-    {{-- USERS TABLE --}}
     <h3>{{ __('messages.users') }}</h3>
     <table class="admin-table">
         <tr>
@@ -23,13 +21,11 @@
             <td>{{ $user->email }}</td>
             <td>{{ $user->role }}</td>
             <td>
-                {{-- blocked users get an unblock button... --}}
                 @if($user->role === 'blocked')
                     <form action="{{ route('admin.unblockUser', $user) }}" method="POST" style="display:inline">
                         @csrf
                         <button type="submit" class="btn-red">{{ __('messages.unblock') }}</button>
                     </form>
-                {{-- ...normal users get a block button, but we never show one for fellow admins --}}
                 @elseif($user->role !== 'admin')
                     <form action="{{ route('admin.blockUser', $user) }}" method="POST" style="display:inline">
                         @csrf
@@ -41,7 +37,7 @@
         @endforeach
     </table>
 
-    {{-- LISTINGS TABLE - includes soft-deleted ones so they can be restored --}}
+    {{-- withTrashed in the controller means deleted listings show up here too --}}
     <h3>{{ __('messages.listings') }}</h3>
     <table class="admin-table">
         <tr>
@@ -56,10 +52,8 @@
             <td>{{ $listing->title }}</td>
             <td>{{ $listing->user->name }}</td>
             <td>{{ $listing->category->name }}</td>
-            {{-- deleted_at being set is how we know it was soft-deleted --}}
             <td>{{ $listing->deleted_at ? 'Deleted' : 'Active' }}</td>
             <td>
-                {{-- deleted listing -> restore button, active listing -> delete button --}}
                 @if($listing->deleted_at)
                     <form action="{{ route('admin.restoreListing', $listing) }}" method="POST" style="display:inline">
                         @csrf

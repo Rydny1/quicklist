@@ -1,11 +1,9 @@
-{{-- Login page --}}
 @extends('layouts.app')
 
 @section('content')
 <div class="auth-form">
     <h2>{{ __('messages.login') }}</h2>
 
-    {{-- shows "Wrong email or password" if the login attempt failed --}}
     @if($errors->any())
         <div class="error-box">
             @foreach($errors->all() as $error)
@@ -18,7 +16,6 @@
         @csrf
         <div class="form-group">
             <label>Email</label>
-            {{-- keep the email filled in if login fails, so they only retype the password --}}
             <input type="email" name="email" value="{{ old('email') }}" required>
         </div>
         <div class="form-group">
