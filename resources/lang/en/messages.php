@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'home' => 'Home',
+    'search' => 'Search',
+    'login' => 'Login',
+    'register' => 'Register',
+    'logout' => 'Logout',
+    'dashboard' => 'Dashboard',
+    'create_listing' => 'Post an Ad',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'title' => 'Title',
+    'description' => 'Description',
+    'price' => 'Price',
+    'location' => 'Location',
+    'category' => 'Category',
+    'images' => 'Images',
+    'admin_panel' => 'Admin Panel',
+    'listings' => 'Listings',
+    'users' => 'Users',
+    'block' => 'Block',
+    'unblock' => 'Unblock',
+    'restore' => 'Restore',
+    'audit_logs' => 'Audit Logs',
+    'no_listings' => 'No listings found.',
+];

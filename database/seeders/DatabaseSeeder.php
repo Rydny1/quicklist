@@ -2,24 +2,31 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // create one default admin account so we can log into the admin panel
+        // (password gets hashed automatically by the User model's cast)
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@quicklist.com',
+            'password' => 'admin1234',
+            'role' => 'admin',
         ]);
+
+        // seed the fixed list of categories the site uses
+        $cats = ['Electronics', 'Vehicles', 'Jobs', 'Real Estate', 'Other'];
+        foreach ($cats as $cat) {
+            Category::create([
+                'name' => $cat,
+                // build the slug from the name: "Real Estate" -> "real-estate"
+                'slug' => strtolower(str_replace(' ', '-', $cat)),
+            ]);
+        }
     }
 }

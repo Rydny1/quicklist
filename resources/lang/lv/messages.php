@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'home' => 'Sākums',
+    'search' => 'Meklēt',
+    'login' => 'Ieiet',
+    'register' => 'Reģistrēties',
+    'logout' => 'Iziet',
+    'dashboard' => 'Mans profils',
+    'create_listing' => 'Publicēt sludinājumu',
+    'edit' => 'Rediģēt',
+    'delete' => 'Dzēst',
+    'save' => 'Saglabāt',
+    'title' => 'Nosaukums',
+    'description' => 'Apraksts',
+    'price' => 'Cena',
+    'location' => 'Atrašanās vieta',
+    'category' => 'Kategorija',
+    'images' => 'Attēli',
+    'admin_panel' => 'Administrācija',
+    'listings' => 'Sludinājumi',
+    'users' => 'Lietotāji',
+    'block' => 'Bloķēt',
+    'unblock' => 'Atbloķēt',
+    'restore' => 'Atjaunot',
+    'audit_logs' => 'Darbību žurnāls',
+    'no_listings' => 'Sludinājumi nav atrasti.',
+];
