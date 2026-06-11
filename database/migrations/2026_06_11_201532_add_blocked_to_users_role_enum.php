@@ -10,11 +10,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('registered', 'admin', 'blocked') NOT NULL DEFAULT 'registered'");
+        // added to suppoert SQLlite, which doesn't support altering ENUMs, but MySQL does
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('registered', 'admin', 'blocked') NOT NULL DEFAULT 'registered'");
+        }
     }
 
     public function down(): void
     {
-        DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('registered', 'admin') NOT NULL DEFAULT 'registered'");
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('registered', 'admin') NOT NULL DEFAULT 'registered'");
+        }
     }
 };
