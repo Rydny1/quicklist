@@ -13,4 +13,4 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 RUN php artisan config:cache && php artisan route:cache
 
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
+CMD php artisan migrate --force && php -S 0.0.0.0:${PORT:-8080} -t public public/index.php
