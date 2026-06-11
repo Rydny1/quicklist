@@ -15,7 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
     $middleware->alias([
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
     ]);
-    $middleware->append(\App\Http\Middleware\SetLocale::class);
+    // Must run INSIDE the web group (after StartSession), otherwise the
+    // session isn't booted yet and the saved locale can't be read.
+    $middleware->web(append: [
+        \App\Http\Middleware\SetLocale::class,
+    ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
